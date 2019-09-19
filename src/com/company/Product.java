@@ -8,21 +8,27 @@ public class Product {
     private String description;
     private double price;
 
+    // Default constructor
     public Product() {
-        code = "";
-        description = "";
-        price = 0.0;
     }
 
-    // Get and set accessors for the code, description, and price instance variables
+    // Overloaded Constructor
+    public Product(String code, String description, double price) {
+        this.code = code;
+        this.description = description;
+        this.price = price;
+    }
+
+    // methods to return variables formatted as one string
     @Override
     public String toString() {
-        return "Code:                " + code + "\n" +
-                "Description:        " + description + "\n" +
-                "Price:              " + this.getFormattedPrice() + "\n";
+        String s = "Code:\t\t\t\t\t" + code + "\n" +
+                "Description:\t\t\t" + description + "\n" +
+                "Price:\t\t\t\t\t" + this.getFormattedPrice() + "\n";
+        return s;
     }
 
-    private String getFormattedPrice() {
+    public String getFormattedPrice() {
         // Use the NumberFormat class to format the price to 2 decimal places
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumFractionDigits(2);
@@ -30,11 +36,8 @@ public class Product {
         nf.setRoundingMode(RoundingMode.HALF_UP);
         return nf.format(price);
     }
-    public String returnFormattedPrice()
-    {
-        return getFormattedPrice();
-    }
 
+    // Get and set accessors for the code, description, and price instance variables
     public String getCode() {
         return code;
     }

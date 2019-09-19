@@ -2,32 +2,56 @@ package com.company;
 
 import java.util.Scanner;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltStrings.split;
+
 public class Main {
     public static void main(String[] args){
-        Scanner keybd = new Scanner(System.in);
-        System.out.print("Enter the Book Code: ");
-        String code = keybd.nextLine();
 
-        Book b = new Book();
-        b.setCode(code);
-        b.setAuthor("Dave W.");
-        b.setPrice(59.99);
-        b.setDescription("Java programming book");
-        System.out.println(b.toString());
+        getCustomerRequest();
 
-        Book c = new Book();
-        c.setCode("Book 8910");
-        c.setAuthor("Dave W.");
-        c.setPrice(49.99);
-        c.setDescription("Python programming book");
-        System.out.println(c.toString());
+        System.out.println("Goodbye.");
+    }
 
-        Software s = new Software();
-        s.setCode("Program1234");
-        s.setDescription("Spreadsheet");
-        s.setPrice(999.99);
-        s.setOs("Windows");
-        s.setProgrammer("Fi");
-        System.out.println(s.toString());
+    public static void getCustomerRequest(){
+        Scanner key = new Scanner(System.in);
+        BookDatabase bd = new BookDatabase();
+        SoftwareDatabase sd = new SoftwareDatabase();
+        String again = "yes";
+
+        while(again.equalsIgnoreCase("yes")) {
+            System.out.println("To search for a product, please enter the product code " +
+                    "(e.g., \"Book 314\" or \"Program 1234\") \nor enter \"all\" to receive a list of all " +
+                    "products.  \nPlease omit the quotation marks but include the space: ");
+            String r = key.nextLine();
+            String[] rSplit = r.split(" ");
+            if (rSplit[0].equalsIgnoreCase("Book")) {
+                for (Book book : bd.getBooks()) {
+                    if (r.equalsIgnoreCase(book.getCode())) {
+                        System.out.println("Matching item:\n" + book.toStringBook());
+                    } else {
+                        System.out.println("Sorry. Book not found.");
+                    }
+                }
+                System.out.println("Do you want to search for another item? (yes/no)");
+                again = key.nextLine();
+            }else if (rSplit[0].equalsIgnoreCase("Program")) {
+                for (Software software : sd.getSofts()) {
+                    if (r.equalsIgnoreCase(software.getCode())) {
+                        System.out.println("Matching item:\n" + software.toStringSoft());
+                    } else {
+                        System.out.println("Sorry. Software not found.");
+                    }
+                }
+                System.out.println("Do you want to search for another item? (yes/no)");
+                again = key.nextLine();
+                key.nextLine();
+            }else if(rSplit[0].equalsIgnoreCase("all")){
+                bd.printAllBooks(bd.getBooks());
+                sd.printAllSoftware(sd.getSofts());
+                again = "no";
+            }else{
+                System.out.println("Invalid Answer.  Please try again.");
+            }
+        }
     }
 }
