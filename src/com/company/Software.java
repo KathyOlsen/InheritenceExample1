@@ -20,6 +20,16 @@ public class Software extends Product {
         return s;
     }
 
+    @Override
+    public boolean equals(Object o){
+        Software so = new Software();
+        if(this.getCode().equals(so.getCode())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public String getProgrammer() {
         return programmer;
     }

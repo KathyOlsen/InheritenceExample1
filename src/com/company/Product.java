@@ -37,6 +37,16 @@ public class Product {
         return nf.format(price);
     }
 
+    @Override
+    public boolean equals(Object o){
+        Product p = new Product();
+        if(this.getCode().equals(p.getCode())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     // Get and set accessors for the code, description, and price instance variables
     public String getCode() {
         return code;

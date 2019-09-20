@@ -22,6 +22,16 @@ public class Book extends Product {
         return s;
     }
 
+    @Override
+    public boolean equals(Object o){
+        Book b = new Book();
+        if(this.getCode().equals(b.getCode())){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public String getAuthor() {
         return author;
     }
